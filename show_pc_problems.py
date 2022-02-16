@@ -1,10 +1,6 @@
 import os
-import numpy as np
 import pandas as pd
-import csv
-import seaborn as sns
 import matplotlib.pyplot as plt
-from scipy import stats
 
 input_file = 'data/data_cleaned.csv'
 

@@ -2,7 +2,6 @@ import os
 import numpy as np
 import pandas as pd
 import csv
-from datetime import datetime
 
 input_file = 'data/data_raw.csv'
 output_file = 'data/data_cleaned.csv'

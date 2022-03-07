@@ -1,0 +1,4 @@
+platform_name,platform_id,design,documentation,tools,technical,testing,bugs,prototyping,scope,feature_creep,cutting_features,delays,crunch,communication,team,budget,multiple_projects,planning,security,marketing,monetization
+Console,1,46,5,35,61,18,19,10,14,15,18,14,17,31,44,12,5,37,2,22,7
+PC,2,81,19,57,82,40,29,15,28,22,35,22,27,38,60,17,12,56,2,49,16
+Mobile,3,31,2,17,28,12,10,4,7,1,14,11,7,13,19,1,4,16,0,16,9

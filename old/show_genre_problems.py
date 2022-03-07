@@ -1,25 +1,32 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
 
 input_file = 'data/data_cleaned.csv'
 
-def show_pc_problem_types(file):
-    df = pd.read_csv(file)
+def show_plot():
+    df = pd.read_csv(input_file)
+    arg_genre = sys.argv[1]
+    arg_field = sys.argv[2]
+    if arg_field != 'group' and arg_field != 'type':
+        print("Invalid args. Takes field (type, group) as args.")
+        return
 
-    problem_types = list(dict.fromkeys(df['type']).keys())
+    field_keys = list(dict.fromkeys(df[arg_field]).keys())
+    print(list(dict.fromkeys(df['genre']).keys()))
+    genre = df[df['genre']==arg_genre]
 
-    pc = df[df['platform']=='pc']
+    vals = []
+    for val in field_keys:
+        vals.append(len(genre[genre[arg_field] == val]))
 
-    problem_types_vals = []
-    for problem_type in problem_types:
-        problem_types_vals.append(len(pc[pc['type'] == problem_type]))
-
-    df_sorted = pd.DataFrame({'Types': problem_types, 'Values': problem_types_vals}).sort_values("Values", ascending=False)
+    field_header = 'Groups' if arg_field == 'group' else 'Types'
+    df_sorted = pd.DataFrame({field_header: field_keys, 'Values': vals}).sort_values("Values", ascending=False)
 
     #===== Visualization =====#
     fig, ax = plt.subplots(figsize =(16, 9))
-    ax.barh(df_sorted['Types'].values.tolist(), df_sorted['Values'].values.tolist())
+    ax.barh(df_sorted[field_header].values.tolist(), df_sorted['Values'].values.tolist())
     for s in ['top', 'bottom', 'left', 'right']:
         ax.spines[s].set_visible(False)
     
@@ -40,7 +47,9 @@ def show_pc_problem_types(file):
                 fontsize = 10, fontweight ='bold',
                 color ='grey')
     
-    ax.set_title('Game development problems for PC',
+    genre_title = arg_genre #.capitalize()
+
+    ax.set_title('Game development problems for ' + genre_title + ' (by ' + ('Group' if arg_field == 'group' else 'Type') + ')',
                 loc ='left', )
     fig.text(0.9, 0.15, '', fontsize = 12,
             color ='grey', ha ='right', va ='bottom',
@@ -48,4 +57,4 @@ def show_pc_problem_types(file):
     
     plt.show()
 
-show_pc_problem_types(input_file)
+show_plot()
